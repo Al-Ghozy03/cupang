@@ -28,6 +28,10 @@ module.exports = {
           as:"barang_id"
         }
       },
+
+      nama: {
+        type: Sequelize.STRING
+      },
       jumlah: {
         type: Sequelize.INTEGER
       },

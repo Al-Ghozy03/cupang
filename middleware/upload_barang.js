@@ -8,7 +8,7 @@ cloudinary.config({
   api_key: process.env.API_KEY,
   api_secret: process.env.SECRET_API_KEY,
   secure:true,
-});
+});// untuk mengambil data dari .env file untuk mengambil data dari cloudinary  
 
 
 const storage = new CloudinaryStorage({
@@ -17,7 +17,7 @@ const storage = new CloudinaryStorage({
     folder: "/cupang",
   },
 
-});
+});// untuk mengambil data dari cloudinary dan mengambil data dari folder cupang
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage });// untuk mengambil data dari storage yang sudah dibuat di atas untuk mengambil data dari cloudinary dan mengambil data dari folder cupang 
 module.exports = { upload };

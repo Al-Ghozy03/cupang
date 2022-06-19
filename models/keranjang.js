@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   keranjang.init({
     user_id: DataTypes.INTEGER,
     barang_id: DataTypes.INTEGER,
+    jumlah: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'keranjang',

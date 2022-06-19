@@ -14,11 +14,14 @@ module.exports = {
       harga: {
         type: Sequelize.BIGINT,
       },
+      totalBarang: {
+        type: Sequelize.BIGINT,
+      },
       foto_barang: {
         type: Sequelize.STRING,
       },
       kategori: {
-        type: Sequelize.ENUM("rosetail", "giant", "avatar", "koi", "halfmoon"),
+        type: Sequelize.ENUM("rosetail", "giant", "avatar", "koi", "halfmoon", "vancy", "Multicolor","avatar", "plakat", "candy", "nemo","red dragon"),
       },
       height: {
         type: Sequelize.INTEGER,

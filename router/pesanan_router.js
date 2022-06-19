@@ -6,24 +6,25 @@ const statusmodel = require("../models").status;
 
 router.post("/create/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const userId = jwtDecode(req.headers.authorization).id;
-    let body = req.body;
-    const data = await barangmodel.findByPk(id);
-    if (!data) return res.status(404).json({ message: "data tidak ditemukan" });
+    const { id } = req.params;// untuk mengambil id dari barang yang di pesan
+    const userId = jwtDecode(req.headers.authorization).id;//  untuk mengambil id dari user yang login dengan jwt token
+    let body = req.body;// untuk mengambil data dari body
+    const data = await barangmodel.findByPk(id);// untuk mengambil data dari barang yang di pesan berdasarkan id
+    if (!data) return res.status(404).json({ message: "data tidak ditemukan" });// jika data tidak ditemukan akan menampilkan pesan data tidak ditemukan  
     const value = await ordermodel.create({
       user_id: userId,
       barang_id: id,
+      nama: body.nama,
       jumlah: body.jumlah,
       total: body.total,
       alamat: body.alamat,
-    });
-    return res.status(200).json({ message: "berhasil", value });
+    });// untuk menambah data ke tabel pesanans berdasarkan id user dan id barang dan data yang di inputkan dan total harga yang di pesan  
+    return res.status(200).json({ message: "berhasil", value });// jika status 200 maka akan menampilkan pesan berhasil dan data yang di inputkan
   } catch (er) {
     console.log(er);
-    return res.status(442).json({ er });
+    return res.status(442).json({ er });// jika status 442 maka akan menampilkan error
   }
-});
+});// untuk menambahkan data transaksi pemesanan barang
 router.post("/status", async (req, res) => {
   try {
     await statusmodel.bulkCreate([
@@ -42,5 +43,5 @@ router.post("/status", async (req, res) => {
     console.log(er);
     return res.status(442).json({ er });
   }
-});
+});// untuk menambahkan data status pemesanan barang  untuk mengambil data status pemesanan barang
 module.exports = { pesananRouter: router };
