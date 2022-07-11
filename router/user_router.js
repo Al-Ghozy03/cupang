@@ -2,6 +2,8 @@ const router = require("express")();
 const usermodel = require("../models").users;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { default: jwtDecode } = require("jwt-decode");
+// const { where } = require("sequelize/types");
 require("dotenv").config();
 
 router.post("/login", async (req, res) => {
@@ -45,16 +47,29 @@ router.post("/register", async (req, res) => {
 });// untuk melakukan register dengan username dan password yang di inputkan dan nomer hp yang di inputkan 
 
 
+
 //membuat user get
 router.get("/get", async (req, res) => {
   try {
-    const data = await usermodel.findAll();
+    const data = await usermodel.findOne ({
+      where: { id: jwtDecode(req.headers.authorization).id },
+
+      
+    })
+    if (!data) return res.status(404).json({ message: "user tidak ditemukan" });
     return res.status(200).json({ data });
+  
   } catch (er) {
     console.log(er);
     return res.status(442).json({ er });
+   
   }
-}
-);// untuk melakukan get semua data user
+});
+
+
+ 
+
+// untuk melakukan get semua data user
+
 
 module.exports = { userRouter: router };

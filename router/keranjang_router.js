@@ -79,8 +79,9 @@ router.post("/add/:id", async (req, res) => {
     await cartmodel.create({
       user_id: jwtDecode(req.headers.authorization).id,
       barang_id: id,
-      jumlah:  1 ,
+      jumlah:  req.body.jumlah ,
     });// untuk menambah data ke tabel keranjang berdasarkan id user dan id barang dan jumlah 1
+    await barangmodel.update({totalBarang: parseInt(data.totalBarang) - parseInt(req.body.jumlah)}, {where:{id:id}})
     return res.status(200).json({
       message: "berhasil"
     });//jika status 200 maka akan menampilkan pesan berhasil
